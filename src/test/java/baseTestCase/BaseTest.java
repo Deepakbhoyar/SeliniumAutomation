@@ -4,8 +4,9 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.*;
+import utilities.Logging;
+import utilities.Screenshot;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,33 +15,50 @@ import java.util.Properties;
 public class BaseTest {
 
     public static WebDriver driver;
-    public static FileReader fr;
     public static Properties pr = new Properties();
 
     @BeforeTest
     public void setup() throws IOException {
-        if (driver==null){
-            FileReader fr = new FileReader("C:\\Users\\deepa\\IdeaProjects\\SeliniumAutomation\\src\\test\\resources\\configfiles\\config.properties");
+        Logging.info("Loading configuration...");
+        if (driver == null) {
+            FileReader fr = new FileReader("src/test/resources/configfiles/config.properties");
             pr.load(fr);
         }
 
-        if (pr.getProperty("browser").equalsIgnoreCase("chrome")){
+        String browser = pr.getProperty("browser");
+        String testLink = pr.getProperty("testlink");
+        Logging.info("Initializing " + browser + " driver...");
+
+        if (browser.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
-            driver.get(pr.getProperty("testlink"));
-        }
-
-        else if (pr.getProperty("browser").equalsIgnoreCase("firefox")){
+        } else if (browser.equalsIgnoreCase("firefox")) {
             WebDriverManager.firefoxdriver().setup();
             driver = new FirefoxDriver();
-            driver.get(pr.getProperty("testlink"));
+        } else {
+            throw new IllegalArgumentException("Unsupported browser: " + browser);
         }
+        driver.get(testLink);
+        Logging.info("Navigated to: " + testLink);
+    }
+
+    public void login() {
+        Logging.info("Starting login process...");
+        // Example login code (update selectors as per your app!)
+        // driver.findElement(By.id("username")).sendKeys(pr.getProperty("username"));
+        // driver.findElement(By.id("password")).sendKeys(pr.getProperty("password"));
+        // driver.findElement(By.id("loginBtn")).click();
+
+        Logging.info("Login attempted.");
+        Screenshot.takeScreenshot(driver, "AfterLogin");
     }
 
     @AfterTest
     public void teardown() {
-        driver.close();
-        System.out.println("The tear down is done");
+        if (driver != null) {
+            Screenshot.takeScreenshot(driver, "Teardown");
+            driver.quit();
+            Logging.info("Browser closed. Tear down done.");
+        }
     }
-    
 }
