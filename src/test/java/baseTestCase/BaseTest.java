@@ -42,17 +42,6 @@ public class BaseTest {
         Logging.info("Navigated to: " + testLink);
     }
 
-    public void login() {
-        Logging.info("Starting login process...");
-        // Example login code (update selectors as per your app!)
-        // driver.findElement(By.id("username")).sendKeys(pr.getProperty("username"));
-        // driver.findElement(By.id("password")).sendKeys(pr.getProperty("password"));
-        // driver.findElement(By.id("loginBtn")).click();
-
-        Logging.info("Login attempted.");
-        Screenshot.takeScreenshot(driver, "AfterLogin");
-    }
-
     @AfterTest
     public void teardown() {
         if (driver != null) {
