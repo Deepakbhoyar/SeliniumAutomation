@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Screenshot {
-    public static String takeScreenshot(WebDriver driver, String name) {
+    public static void takeScreenshot(WebDriver driver, String name) {
         File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         String path = "screenshots/" + name + "_" + timestamp + ".png";
@@ -18,6 +18,5 @@ public class Screenshot {
         } catch (IOException e) {
             Logging.error("Failed to save screenshot", e);
         }
-        return path;
     }
 }
