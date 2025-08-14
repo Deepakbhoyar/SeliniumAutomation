@@ -1,4 +1,4 @@
-package selinium;
+package com.selinium;
 
 import org.junit.jupiter.api.Test;
 

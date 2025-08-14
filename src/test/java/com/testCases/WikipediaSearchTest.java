@@ -1,13 +1,13 @@
-package testCases;
+package com.testCases;
 
-import baseTestCase.BaseTest;
+import com.baseTestCase.BaseTest;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.WikipediaHomePage;
-import utilities.Logging;
-import utilities.Screenshot;
+import com.pages.WikipediaHomePage;
+import com.utilities.Logging;
+import com.utilities.Screenshot;
 
 import java.time.Duration;
 
@@ -25,7 +25,6 @@ public class WikipediaSearchTest extends BaseTest {
         wikiHome.enterSearchTerm("Selenium");
         wikiHome.clickSearch();
 
-        // ✅ Use explicit wait instead of Thread.sleep
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.titleContains("Selenium"));
 

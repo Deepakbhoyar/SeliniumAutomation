@@ -1,12 +1,12 @@
-package baseTestCase;
+package com.baseTestCase;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.*;
-import utilities.Logging;
-import utilities.Screenshot;
+import com.utilities.Logging;
+import com.utilities.Screenshot;
 
 import java.io.FileReader;
 import java.io.IOException;
